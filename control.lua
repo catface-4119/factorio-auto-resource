@@ -753,26 +753,34 @@ function new_entity(entity)
 	end
 	
 	if nil==entity.last_user then
-		game.print(entity.prototype.name.." has no last_user")
+		--game.print(entity.prototype.name.." has no last_user")
 		return
 	end
+
 	local player=entity.last_user.index
+
 	entitieslist[player][lastaddentityindex[player]][entity.unit_number]={entity=entity}
+
 	local e=entitieslist[player][lastaddentityindex[player]][entity.unit_number]
+
 	if entitiesidx[entity.unit_number]~=nil then
 		--game.print("ERROR this index is used "..player.." "..entity.unit_number)
 		return
 	end
+
 	entitiesidx[entity.unit_number]={
 		playerid=player,
 		idx=lastaddentityindex[player],
 	}
+
 	lastaddentityindex[player]=lastaddentityindex[player]+1
+
 	if lastaddentityindex[player]>BUCKET then
 		lastaddentityindex[player]=1
 	end
 	
 	local ftsrc=ft_source()
+	
 	if is_furnace(entity) and #ftsrc>1 then
 		e.furnace_source=ftsrc
 	end
@@ -794,7 +802,7 @@ function remove_entity(entity)
 	end
 	local p=entitiesidx[entity.unit_number]
 	if nil==p then
-		game.print("unknown entity "..entity.prototype.name)
+		--game.print("unknown entity "..entity.prototype.name)
 		return
 	end
 	local e=entitieslist[p.playerid][p.idx][entity.unit_number]
